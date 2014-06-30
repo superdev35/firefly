@@ -44,7 +44,7 @@
         </p>
         @endif
         <p>
-            <a href="#" class="btn btn-default">Reset password</a>
+            <a href="{{route('remindme')}}" class="btn btn-default">Forgot your password?</a>
         </p>
 
     </div>
