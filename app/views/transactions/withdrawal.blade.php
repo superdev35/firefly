@@ -52,7 +52,7 @@
         <div class="form-group">
             <label for="amount" class="col-sm-4 control-label">Amount spent</label>
             <div class="col-sm-8">
-                <input type="number" name="amount" min="0.01" step="any" class="form-control" />
+                <input type="number" name="amount" min="0.01" value="{{Input::old('amount') or 0}}" step="any" class="form-control" />
             </div>
         </div>
 
