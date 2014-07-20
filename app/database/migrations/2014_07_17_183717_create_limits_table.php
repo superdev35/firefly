@@ -18,8 +18,9 @@ class CreateLimitsTable extends Migration {
 			$table->timestamps();
             $table->integer('component_id')->unsigned();
             $table->date('startdate');
-            $table->date('enddate');
             $table->decimal('amount',10,2);
+            $table->boolean('repeats');
+            $table->enum('repeat_freq', ['daily', 'weekly','monthly','quarterly','half-year','yearly']);
 
             // connect component
             $table->foreign('component_id')
