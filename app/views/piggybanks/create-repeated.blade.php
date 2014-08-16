@@ -21,9 +21,9 @@
             <div class="col-sm-8">
                 <input type="text" name="name" class="form-control" id="name" value="{{Input::old('name')}}" placeholder="Name">
                 @if($errors->has('name'))
-                <p class="text-danger">{{$errors->first('name')}}</p>
+                    <p class="text-danger">{{$errors->first('name')}}</p>
                 @else
-                <span class="help-block">For example: new bike, new camera</span>
+                    <span class="help-block">For example: new bike, new camera</span>
                 @endif
             </div>
         </div>
@@ -66,15 +66,15 @@
                 @if($errors->has('targetdate'))
                 <p class="text-danger">{{$errors->first('targetdate')}}</p>
                 @else
-                <span class="help-block">A dead line is needed to properly repeat this repeated expesnse.</span>
+                <span class="help-block">A deadline is needed to properly repeat this repeated expesnse.</span>
                 @endif
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('rep_times', 'Repeat every', ['class' => 'col-sm-4 control-label'])}}
+            {{ Form::label('rep_every', 'Repeat every', ['class' => 'col-sm-4 control-label'])}}
             <div class="col-sm-8">
-                <input type="number" step="1" min="1" value="{{Input::old('rep_times') ?: 1}}" style="width:50px;display:inline;" max="100" name="rep_times" class="form-control" />
+                <input type="number" step="1" min="1" value="{{Input::old('rep_every') ?: 1}}" style="width:50px;display:inline;" max="100" name="rep_every" class="form-control" />
 
                 <select class="form-control" name="rep_length" style="width:150px;display: inline">
                     @foreach($periods as $period)
@@ -96,6 +96,19 @@
     <div class="col-lg-6 col-md-12 col-sm-6">
 
             <h4>Optional fields</h4>
+
+        <div class="form-group">
+            {{ Form::label('startdate', 'Start date', ['class' => 'col-sm-4 control-label'])}}
+            <div class="col-sm-8">
+                <input type="date" name="startdate" value="{{Input::old('startdate') ?: date('Y-m-d')}}"
+                       class="form-control"/>
+                @if($errors->has('startdate'))
+                <p class="text-danger">{{$errors->first('startdate')}}</p>
+                @else
+                <span class="help-block">This date indicates when you start(ed) saving money for this piggy bank. This field defaults to today and you should keep it on today.</span>
+                @endif
+            </div>
+        </div>
 
         <div class="form-group">
             {{ Form::label('reminder', 'Remind you every', ['class' => 'col-sm-4 control-label'])}}
@@ -146,7 +159,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-8">
-                <button type="submit" class="btn btn-default btn-success">Create the piggy bank</button>
+                <button type="submit" class="btn btn-default btn-success">Create the repeated expense</button>
             </div>
         </div>
     </div>
