@@ -23,7 +23,7 @@ class ExpandRemindersTable extends Migration
     public function up()
     {
         Schema::table(
-            'reminders', function ($table) {
+            'reminders', function (Blueprint $table) {
                 $table->string('title');
                 $table->text('data');
             }
