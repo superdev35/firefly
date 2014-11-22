@@ -138,7 +138,7 @@ class Piggybank implements CUD, CommonDatabaseCalls, PiggybankInterface
             try {
                 new Carbon($model['targetdate']);
             } catch (\Exception $e) {
-                $errors->add('date', 'Invalid date.');
+                $errors->add('targetdate', 'Invalid date.');
             }
         }
         if (floatval($model['targetamount']) < 0.01) {
@@ -181,20 +181,6 @@ class Piggybank implements CUD, CommonDatabaseCalls, PiggybankInterface
         }
 
         return ['errors' => $errors, 'warnings' => $warnings, 'successes' => $successes];
-    }
-
-    /**
-     * Validates a model. Returns an array containing MessageBags
-     * errors/warnings/successes.
-     *
-     * @param Ardent $model
-     *
-     * @return array
-     */
-    public function validateObject(Ardent $model)
-    {
-        // TODO: Implement validateObject() method.
-        throw new NotImplementedException;
     }
 
     /**
@@ -264,7 +250,7 @@ class Piggybank implements CUD, CommonDatabaseCalls, PiggybankInterface
      */
     public function leftOnAccount(\Account $account)
     {
-        $balance = Steam::balance($account);
+        $balance = \Steam::balance($account);
         /** @var \Piggybank $p */
         foreach ($account->piggybanks()->get() as $p) {
             $balance -= $p->currentRelevantRep()->currentamount;
