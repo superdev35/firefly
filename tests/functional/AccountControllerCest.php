@@ -2,6 +2,9 @@
 use Carbon\Carbon;
 
 /**
+ * @SuppressWarnings("CamelCase")
+ * @SuppressWarnings("short")
+ *
  * Class AccountControllerCest
  */
 class AccountControllerCest
@@ -19,10 +22,6 @@ class AccountControllerCest
     public function _before(FunctionalTester $I)
     {
         $I->amLoggedAs(['email' => 'thegrumpydictator@gmail.com', 'password' => 'james']);
-
-        Session::put('start', new Carbon);
-        Session::put('end', new Carbon);
-
 
     }
 
@@ -82,9 +81,9 @@ class AccountControllerCest
     public function show(FunctionalTester $I)
     {
         $I->wantTo('see one account');
-        #$I->amOnPage('/accounts/show/3');
-        #$I->see('Details for');
-        #$I->see('Delete me');
+        $I->amOnPage('/accounts/show/3');
+        $I->see('Details for');
+        $I->see('Delete me');
     }
 
     /**
