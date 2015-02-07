@@ -4,7 +4,7 @@ namespace FireflyIII\Support\Facades;
 
 use Illuminate\Support\Facades\Facade;
 /**
- * Class Preferences
+ * Class Navigation
  *
  * @package FireflyIII\Support\Facades
  */
