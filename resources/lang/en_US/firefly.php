@@ -111,7 +111,7 @@ return [
     'csv_index_text'                   => 'This form allows you to import a CSV file with transactions into Firefly. It is based on the excellent CSV importer made by the folks at <a href="https://www.atlassian.com/">Atlassian</a>. Simply upload your CSV file and follow the instructions. If you would like to learn more, please click on the <i class="fa fa-question-circle"></i> button at the top of this page.',
     'csv_index_beta_warning'           => 'This tool is very much in beta. Please proceed with caution',
     'csv_header_help'                  => 'Check this box when your CSV file\'s first row consists of column names, not actual data',
-    'csv_date_help'                    => 'Date time format in your CSV. Follow the format like <a href="https://secure.php.net/manual/en/datetime.createfromformat.php#refsect1-datetime.createfromformat-parameters">this page</a> indicates. The default value will parse dates that look like this: ' . date('Ymd'),
+    'csv_date_help'                    => 'Date time format in your CSV. Follow the format like <a href="https://secure.php.net/manual/en/datetime.createfromformat.php#refsect1-datetime.createfromformat-parameters">this page</a> indicates. The default value will parse dates that look like this: :dateExample.',
     'csv_csv_file_help'                => 'Select the CSV file here. You can only upload one file at a time',
     'csv_csv_config_file_help'         => 'Select your CSV import configuration here. If you do not know what this is, ignore it. It will be explained later.',
     'csv_upload_button'                => 'Start importing CSV',
@@ -471,7 +471,7 @@ return [
     'tag_title_balancingAct'           => 'Balancing act tags',
     'tag_title_advancePayment'         => 'Advance payment tags',
     'tags_introduction'                => 'Usually tags are singular words, designed to quickly band items together using things like <span class="label label-info">expensive</span>, <span class="label label-info">bill</span> or <span class="label label-info">for-party</span>. In Firefly III, tags can have more properties such as a date, description and location. This allows you to join transactions together in a more meaningful way. For example, you could make a tag called <span class="label label-success"> Christmas dinner with friends</span> and add information about the restaurant. Such tags are "singular", you would only use them for a single occasion, perhaps with multiple transactions.',
-    'tags_group'                       => 'Tags group transactions together, which makes it possible to store reimbursements (in case you front money for others) and other "balancing acts" where expenses are summed up (the payments on your new TV) or where expenses and deposits are cancelling each other out (buying something with saved money). It\'s all up to you. Using tags the old-fashioned way is of course always possible. ',
+    'tags_group'                       => 'Tags group transactions together, which makes it possible to store reimbursements (in case you front money for others) and other "balancing acts" where expenses are summed up (the payments on your new TV) or where expenses and deposits are cancelling each other out (buying something with saved money). It\'s all up to you. Using tags the old-fashioned way is of course always possible.',
     'tags_start'                       => 'Create a tag to get started or enter tags when creating new transactions.',
 
 ];
