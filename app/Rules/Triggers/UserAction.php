@@ -48,6 +48,7 @@ class UserAction implements TriggerInterface
     public function triggered()
     {
         Log::debug('user_action always returns true.');
+
         return true;
     }
 
