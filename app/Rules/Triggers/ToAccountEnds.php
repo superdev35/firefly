@@ -18,7 +18,7 @@ use Log;
  *
  * @package FireflyIII\Rules\Triggers
  */
-class Ends implements TriggerInterface
+class ToAccountEnds implements TriggerInterface
 {
     /** @var RuleTrigger */
     protected $trigger;
