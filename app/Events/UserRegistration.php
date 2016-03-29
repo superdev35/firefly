@@ -27,9 +27,9 @@ class UserRegistration extends Event
     /**
      * Create a new event instance.
      *
-     * @param  User $user
+     * @param  User  $user
      *
-     * @return void
+     * @param string $ip
      */
     public function __construct(User $user, string $ip)
     {
