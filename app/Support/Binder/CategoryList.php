@@ -38,7 +38,7 @@ class CategoryList implements BinderInterface
                               ->where('user_id', Auth::user()->id)
                               ->get();
 
-            // add empty budget if applicable.
+            // add empty category if applicable.
             if (in_array('0', $ids)) {
                 $object->push(new Category);
             }
