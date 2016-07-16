@@ -28,7 +28,7 @@ class AssetAccountName extends BasicConverter implements ConverterInterface
      */
     public function convert($value)
     {
-        throw new FireflyException('Importer with name AssetAccountId has not yet been configured.');
+        throw new FireflyException('Importer with name AssetAccountName has not yet been configured.');
 
     }
 }
