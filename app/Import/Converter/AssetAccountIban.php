@@ -13,6 +13,7 @@ namespace FireflyIII\Import\Converter;
 
 use FireflyIII\Crud\Account\AccountCrudInterface;
 use FireflyIII\Models\Account;
+use FireflyIII\Models\AccountType;
 use Log;
 
 /**
@@ -30,7 +31,12 @@ class AssetAccountIban extends BasicConverter implements ConverterInterface
      */
     public function convert($value): Account
     {
-        Log::debug('Going to convert value ' . $value);
+        $value = trim($value);
+        Log::debug('Going to convert ', ['value' => $value]);
+
+        if (strlen($value) === 0) {
+            return new Account;
+        }
 
         /** @var AccountCrudInterface $repository */
         $repository = app(AccountCrudInterface::class, [$this->user]);
@@ -47,7 +53,7 @@ class AssetAccountIban extends BasicConverter implements ConverterInterface
         }
 
         // not mapped? Still try to find it first:
-        $account = $repository->findByIban($value);
+        $account = $repository->findByIban($value, [AccountType::ASSET]);
         if (!is_null($account->id)) {
             Log::debug('Found account by IBAN', ['id' => $account->id]);
 
