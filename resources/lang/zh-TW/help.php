@@ -23,7 +23,7 @@ return [
     'transaction-menu-title'   => '交易',
     'transaction-menu-text'    => '你可以在這裡找到所有交易記錄。',
     'option-menu-title'        => '設定',
-    'option-menu-text'         => 'This is pretty self-explanatory.',
+    'option-menu-text'         => '相當不言而喻吧。',
     'main-content-end-title'   => '完',
     'main-content-end-text'    => '每一頁在右上方有一個小問號。按一下它可以取得與頁面相關説明。',
     'index'                    => '首頁',
