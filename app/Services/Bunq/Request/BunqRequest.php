@@ -160,6 +160,9 @@ abstract class BunqRequest
         return $result;
     }
 
+    /**
+     * @return array
+     */
     protected function getDefaultHeaders(): array
     {
         $userAgent = sprintf('FireflyIII v%s', config('firefly.version'));
