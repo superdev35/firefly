@@ -25,7 +25,7 @@ namespace FireflyIII\Services\Spectre\Request;
 use Log;
 
 /**
- * Class ListUserRequest.
+ * Class ListProvidersRequest
  */
 class ListProvidersRequest extends SpectreRequest
 {
