@@ -37,4 +37,12 @@ class Holder extends SpectreObject
     {
 
     }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [];
+    }
 }
