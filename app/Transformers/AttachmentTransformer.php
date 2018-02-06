@@ -40,7 +40,15 @@ class AttachmentTransformer extends TransformerAbstract
     public function transform(Attachment $attachment): array
     {
         return [
-            'id' => (int)$attachment->id,
+            'id'              => (int)$attachment->id,
+            'attachable_type' => $attachment->attachable_type,
+            'md5'             => $attachment->md5,
+            'filename'        => $attachment->filename,
+            'title'           => $attachment->title,
+            'description'     => $attachment->description,
+            'notes'           => $attachment->notes,
+            'mime'            => $attachment->mime,
+            'size'            => $attachment->size,
         ];
     }
 
