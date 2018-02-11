@@ -27,6 +27,7 @@ namespace FireflyIII\Transformers;
 use FireflyIII\Models\Attachment;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
  * Class AttachmentTransformer
@@ -44,7 +45,20 @@ class AttachmentTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $defaultIncludes = [];
+    protected $defaultIncludes = ['user'];
+
+    /** @var ParameterBag */
+    protected $parameters;
+
+    /**
+     * BillTransformer constructor.
+     *
+     * @param ParameterBag $parameters
+     */
+    public function __construct(ParameterBag $parameters)
+    {
+        $this->parameters = $parameters;
+    }
 
     /**
      * @param Attachment $attachment
@@ -53,9 +67,7 @@ class AttachmentTransformer extends TransformerAbstract
      */
     public function includeUser(Attachment $attachment): Item
     {
-        $user = $attachment->user()->first();
-
-        return $this->item($user, new UserTransformer, 'user');
+        return $this->item($attachment->user, new UserTransformer($this->parameters), 'user');
     }
 
     /**
