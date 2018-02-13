@@ -34,7 +34,6 @@ use League\Fractal\Resource\Collection as FractalCollection;
 use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\JsonApiSerializer;
 use Preferences;
-use Response;
 
 /**
  * Class BillController
@@ -98,7 +97,7 @@ class BillController extends Controller
         $resource = new FractalCollection($bills, new BillTransformer($this->parameters), 'bills');
         $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
 
-        return Response::json($manager->createData($resource)->toArray());
+        return response()->json($manager->createData($resource)->toArray());
     }
 
 
@@ -117,7 +116,7 @@ class BillController extends Controller
 
         $resource = new Item($bill, new BillTransformer($this->parameters), 'bills');
 
-        return Response::json($manager->createData($resource)->toArray());
+        return response()->json($manager->createData($resource)->toArray());
     }
 
     /**
@@ -134,7 +133,7 @@ class BillController extends Controller
 
         $resource = new Item($bill, new BillTransformer($this->parameters), 'bills');
 
-        return Response::json($manager->createData($resource)->toArray());
+        return response()->json($manager->createData($resource)->toArray());
 
     }
 
@@ -155,7 +154,7 @@ class BillController extends Controller
 
         $resource = new Item($bill, new BillTransformer($this->parameters), 'bills');
 
-        return Response::json($manager->createData($resource)->toArray());
+        return response()->json($manager->createData($resource)->toArray());
 
     }
 }
