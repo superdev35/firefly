@@ -39,7 +39,7 @@ class ListMonetaryAccountRequest extends BunqRequest
     private $userId = 0;
 
     /**
-     * @throws \Exception
+     * @throws \FireflyIII\Exceptions\FireflyException
      */
     public function call(): void
     {
