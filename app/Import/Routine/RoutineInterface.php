@@ -31,6 +31,10 @@ use FireflyIII\Models\ImportJob;
 interface RoutineInterface
 {
     /**
+     * At the end of each run(), the import routine must set the job to the expected status.
+     *
+     * The final status of the routine must be "provider_finished".
+     *
      * @return bool
      * @throws FireflyException
      */
