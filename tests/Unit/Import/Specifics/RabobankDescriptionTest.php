@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace tests\Unit\Import\Specifics;
 
 
+use FireflyIII\Import\Specifics\RabobankDescription;
 use Tests\TestCase;
 
 /**
@@ -31,9 +32,44 @@ use Tests\TestCase;
  */
 class RabobankDescriptionTest extends TestCase
 {
+    /**
+     * Default behaviour
+     * @covers \FireflyIII\Import\Specifics\RabobankDescription
+     */
     public function testRunBasic(): void
     {
-        $this->assertTrue(true);
+        $row = ['','','','','','','','','','',''];
+
+        $parser = new RabobankDescription;
+        $result = $parser->run($row);
+        $this->assertEquals($row, $result);
+    }
+
+    /**
+     * No opposite name or iban
+     * @covers \FireflyIII\Import\Specifics\RabobankDescription
+     */
+    public function testRunUseDescription(): void
+    {
+        $row = ['','','','','','','','','','','Hello'];
+
+        $parser = new RabobankDescription;
+        $result = $parser->run($row);
+        $this->assertEquals('Hello', $result[6]);
+        $this->assertEquals('', $result[10]);
+    }
+
+    /**
+     * Has opposite name or iban
+     * @covers \FireflyIII\Import\Specifics\RabobankDescription
+     */
+    public function testRunUseFilledIn(): void
+    {
+        $row = ['','','','','','ABC','','','','',''];
+
+        $parser = new RabobankDescription;
+        $result = $parser->run($row);
+        $this->assertEquals($row, $result);
     }
 
 }
