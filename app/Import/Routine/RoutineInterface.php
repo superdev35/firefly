@@ -43,7 +43,7 @@ interface RoutineInterface
     /**
      * @param ImportJob $job
      *
-     * @return mixed
+     * @return void
      */
-    public function setJob(ImportJob $job);
+    public function setJob(ImportJob $job): void;
 }
