@@ -45,5 +45,5 @@ interface FileProcessorInterface
      *
      * @param ImportJob $job
      */
-    public function setJob(ImportJob $job): void;
+    public function setImportJob(ImportJob $job): void;
 }
