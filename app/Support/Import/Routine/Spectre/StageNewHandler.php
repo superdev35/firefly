@@ -61,11 +61,14 @@ class StageNewHandler
     {
         Log::debug('Now in stageNewHandler::run()');
         $customer = $this->getCustomer();
-        // get token using customer.
-        $token = $this->getToken($customer);
 
+        // get token using customer.
         app('preferences')->setForUser($this->importJob->user, 'spectre_customer', $customer->toArray());
-        app('preferences')->setForUser($this->importJob->user, 'spectre_token', $token->toArray());
+
+        // store token in the job.
+        $config          = $this->repository->getConfiguration($this->importJob);
+
+        $this->repository->setConfiguration($this->importJob, $config);
     }
 
     /**
@@ -122,23 +125,6 @@ class StageNewHandler
         return $customer;
     }
 
-    /**
-     * @param Customer $customer
-     *
-     * @throws FireflyException
-     * @return Token
-     */
-    private function getToken(Customer $customer): Token
-    {
-        Log::debug('Now in getToken()');
-        $request = new CreateTokenRequest($this->importJob->user);
-        $request->setUri(route('import.job.status.index', [$this->importJob->key]));
-        $request->setCustomer($customer);
-        $request->call();
-        Log::debug('Call to get token is finished');
-
-        return $request->getToken();
-    }
 
 
 }
