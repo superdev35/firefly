@@ -32,7 +32,7 @@ use Log;
  *
  * Class AuthenticatedHandler
  */
-class AuthenticatedHandler implements SpectreConfigurationInterface
+class AuthenticatedHandler implements SpectreJobConfigurationInterface
 {
     /**
      * Return true when this stage is complete.

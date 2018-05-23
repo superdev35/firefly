@@ -35,7 +35,7 @@ use FireflyIII\Support\Import\JobConfiguration\Spectre\ChooseLoginHandler;
 use FireflyIII\Support\Import\JobConfiguration\Spectre\DoAuthenticateHandler;
 use FireflyIII\Support\Import\JobConfiguration\Spectre\NewConfig;
 use FireflyIII\Support\Import\JobConfiguration\Spectre\NewSpectreJobHandler;
-use FireflyIII\Support\Import\JobConfiguration\Spectre\SpectreConfigurationInterface;
+use FireflyIII\Support\Import\JobConfiguration\Spectre\SpectreJobConfigurationInterface;
 use Illuminate\Support\MessageBag;
 use Log;
 
@@ -44,7 +44,7 @@ use Log;
  */
 class SpectreJobConfiguration implements JobConfigurationInterface
 {
-    /** @var SpectreConfigurationInterface */
+    /** @var SpectreJobConfigurationInterface */
     private $handler;
     /** @var ImportJob */
     private $importJob;
@@ -108,10 +108,10 @@ class SpectreJobConfiguration implements JobConfigurationInterface
     }
 
     /**
-     * @return SpectreConfigurationInterface
+     * @return SpectreJobConfigurationInterface
      * @throws FireflyException
      */
-    private function getHandler(): SpectreConfigurationInterface
+    private function getHandler(): SpectreJobConfigurationInterface
     {
         Log::debug(sprintf('Now in SpectreJobConfiguration::getHandler() with stage "%s"', $this->importJob->stage));
         $handler = null;
