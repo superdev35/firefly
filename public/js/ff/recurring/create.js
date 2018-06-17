@@ -114,9 +114,14 @@ function parseRepetitionSuggestions(data) {
 
     var select = $('#ffInput_repetition_type');
     select.empty();
+    var opt;
     for (var k in data) {
         if (data.hasOwnProperty(k)) {
-            select.append($('<option>').val(k).attr('label', data[k]).text(data[k]));
+            opt = $('<option>').val(k).attr('label', data[k]).text(data[k]);
+            if(k === oldRepetitionType) {
+                opt.attr('selected','selected');
+            }
+            select.append(opt);
         }
     }
     select.removeAttr('disabled');
