@@ -29,6 +29,9 @@ use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
+/**
+ * Class AvailableBudgetTransformer
+ */
 class AvailableBudgetTransformer extends TransformerAbstract
 {
     /**
