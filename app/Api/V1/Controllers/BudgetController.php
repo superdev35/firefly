@@ -46,7 +46,7 @@ class BudgetController extends Controller
     private $repository;
 
     /**
-     * BillController constructor.
+     * BudgetController constructor.
      */
     public function __construct()
     {
