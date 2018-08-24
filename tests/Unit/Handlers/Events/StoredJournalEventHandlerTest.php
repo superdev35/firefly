@@ -25,8 +25,10 @@ namespace Tests\Unit\Handlers\Events;
 
 
 use FireflyIII\Events\StoredTransactionJournal;
+use FireflyIII\Exceptions\FireflyException;
 use FireflyIII\Handlers\Events\StoredJournalEventHandler;
 use FireflyIII\Repositories\RuleGroup\RuleGroupRepositoryInterface;
+use FireflyIII\TransactionRules\Processor;
 use Log;
 use Tests\TestCase;
 
@@ -51,24 +53,28 @@ class StoredJournalEventHandlerTest extends TestCase
      */
     public function testProcessRules(): void
     {
-//        $ruleGroupRepos = $this->mock(RuleGroupRepositoryInterface::class);
-//        $journal        = $this->user()->transactionJournals()->inRandomOrder()->first();
-//        $piggy          = $this->user()->piggyBanks()->inRandomOrder()->first();
-//        $event          = new StoredTransactionJournal($journal, $piggy->id);
-//        $ruleGroups     = $this->user()->ruleGroups()->take(1)->get();
-//        $rules = $this->user()->rules()->take(1)->get();
-//
-//        // mock calls:
-//        $ruleGroupRepos->shouldReceive('setUser')->once();
-//        $ruleGroupRepos->shouldReceive('getActiveGroups')->andReturn($ruleGroups)->once();
-//        $ruleGroupRepos->shouldReceive('getActiveStoreRules')->andReturn($rules)->once();
-//
-//
-//
-//        $handler = new StoredJournalEventHandler;
-//        $handler->processRules($event);
-        $this->assertTrue(true);
+        $ruleGroupRepos = $this->mock(RuleGroupRepositoryInterface::class);
+        $processor      = $this->mock(Processor::class);
+
+        $journal    = $this->user()->transactionJournals()->inRandomOrder()->first();
+        $piggy      = $this->user()->piggyBanks()->inRandomOrder()->first();
+        $event      = new StoredTransactionJournal($journal, $piggy->id);
+        $ruleGroups = $this->user()->ruleGroups()->take(1)->get();
+        $rules      = $this->user()->rules()->take(1)->get();
+
+        // mock calls:
+        $ruleGroupRepos->shouldReceive('setUser')->once();
+        $ruleGroupRepos->shouldReceive('getActiveGroups')->andReturn($ruleGroups)->once();
+        $ruleGroupRepos->shouldReceive('getActiveStoreRules')->andReturn($rules)->once();
+        $processor->shouldReceive('make')->once();
+        $processor->shouldReceive('handleTransactionJournal')->once();
 
 
+        $handler = new StoredJournalEventHandler;
+        try {
+            $handler->processRules($event);
+        } catch (FireflyException $e) {
+            $this->assertTrue(false, $e->getMessage());
+        }
     }
 }
