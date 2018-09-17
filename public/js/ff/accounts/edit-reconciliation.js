@@ -18,8 +18,6 @@
  * along with Firefly III. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** global: what, Modernizr, selectsForeignCurrency, convertForeignToNative, validateCurrencyForTransfer, convertSourceToDestination, journalData, journal, accountInfo, exchangeRateInstructions, currencyInfo */
-
 $(document).ready(function () {
     "use strict";
     setAutocompletes();
@@ -30,47 +28,7 @@ $(document).ready(function () {
  * Set the auto-complete JSON things.
  */
 function setAutocompletes() {
-
-
-
-    // do categories auto complete:
-    var categories = new Bloodhound({
-                                        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-                                        queryTokenizer: Bloodhound.tokenizers.whitespace,
-                                        prefetch: {
-                                            url: 'json/categories',
-                                            filter: function (list) {
-                                                return $.map(list, function (name) {
-                                                    return {name: name};
-                                                });
-                                            }
-                                        }
-                                    });
-    categories.initialize();
-    $('input[name="category"]').typeahead({}, {source: categories, displayKey: 'name', autoSelect: false});
-
-
-    // do tags auto complete:
-    var tagTags = new Bloodhound({
-                                     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-                                     queryTokenizer: Bloodhound.tokenizers.whitespace,
-                                     prefetch: {
-                                         url: 'json/tags',
-                                         filter: function (list) {
-                                             return $.map(list, function (tagTag) {
-                                                 return {name: tagTag};
-                                             });
-                                         }
-                                     }
-                                 });
-    tagTags.initialize();
-    $('input[name="tags"]').tagsinput({
-                                          typeaheadjs: {
-                                              name: 'tags',
-                                              displayKey: 'name',
-                                              valueKey: 'name',
-                                              source: tagTags.ttAdapter()
-                                          }
-                                      });
+    initCategoryAC();
+    initTagsAC();
 }
 
