@@ -1,7 +1,7 @@
 <?php
 /**
  * FinTSConfigurationInterface.php
- * Copyright (c) 2017 thegrumpydictator@gmail.com
+ * Copyright (c) 2018 https://github.com/bnw
  *
  * This file is part of Firefly III.
  *
@@ -25,6 +25,9 @@ namespace FireflyIII\Support\Import\JobConfiguration\FinTS;
 use FireflyIII\Models\ImportJob;
 use Illuminate\Support\MessageBag;
 
+/**
+ *
+ */
 interface FinTSConfigurationInterface
 {
     /**
