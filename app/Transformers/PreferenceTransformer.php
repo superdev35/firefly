@@ -38,6 +38,7 @@ class PreferenceTransformer extends AbstractTransformer
     /**
      * PreferenceTransformer constructor.
      *
+     * @codeCoverageIgnore
      */
     public function __construct()
     {
