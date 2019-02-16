@@ -45,9 +45,17 @@ class ChangesForV4711 extends Migration
      */
     public function up(): void
     {
+        /**
+         * In 4.7.11, I changed the date field to a "datetimetz" field. This wreaks havoc
+         * because apparently MySQL is not actually capable of handling multiple time zones,
+         * only having a server wide time zone setting. Actual database schemes like Postgres
+         * handle this just fine but the combination is unpredictable. So we go back to
+         * datetime (without a time zone) for all database engines because MySQL refuses to play
+         * nice.
+         */
         Schema::table(
             'transaction_journals', function (Blueprint $table) {
-            $table->dateTimeTz('date')->change();
+            $table->dateTime('date')->change();
         }
         );
 
