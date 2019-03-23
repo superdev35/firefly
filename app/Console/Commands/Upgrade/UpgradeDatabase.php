@@ -34,7 +34,7 @@ class UpgradeDatabase extends Command
      *
      * @var string
      */
-    protected $description = 'Executes all upgrade commands.';
+    protected $description = 'Upgrades the database to the latest version.';
     /**
      * The name and signature of the console command.
      *
