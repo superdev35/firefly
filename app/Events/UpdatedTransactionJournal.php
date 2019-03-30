@@ -29,7 +29,7 @@ use Illuminate\Queue\SerializesModels;
 
 /**
  * Class UpdatedTransactionJournal.
- *
+ * @deprecated
  * @codeCoverageIgnore
  *
  */
@@ -47,6 +47,7 @@ class UpdatedTransactionJournal extends Event
      */
     public function __construct(TransactionJournal $journal)
     {
+        throw new FireflyException('The UpdatedTransactionJournal event is deprecated.');
         $this->journal = $journal;
     }
 }
