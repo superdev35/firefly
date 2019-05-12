@@ -1,21 +1,31 @@
 <template>
     <div class="form-group">
         <div class="col-sm-12 text-sm">
-            Custom Date
+            {{ title }}
         </div>
         <div class="col-sm-12">
-            <!-- v-model="transaction.date" -->
-            <!-- :disabled="index > 0" -->
-            <input type="date" class="form-control" name="date[]"
-                   title="Custom Date" value="" autocomplete="off"
-                   placeholder="Custom Date">
+            <input type="date" class="form-control" :name="name"
+                   :title="title" autocomplete="off"
+                   ref="date"
+                   :value="value" @input="handleInput"
+                   :placeholder="title">
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "CustomDate"
+        name: "CustomDate",
+        props: {
+            value: String,
+            title: String,
+            name: String
+        },
+        methods: {
+            handleInput(e) {
+                this.$emit('input', this.$refs.date.value);
+            }
+        }
     }
 </script>
 
