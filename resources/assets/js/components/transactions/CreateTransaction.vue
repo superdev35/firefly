@@ -194,7 +194,7 @@
                     </div>
                     <div class="box-footer">
                         <div class="btn-group">
-                            <button class="btn btn-success" @click="submit">Submit</button>
+                            <button class="btn btn-success" id="submitButton" @click="submit">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -310,10 +310,10 @@
                         }
 
                         // correct some id's
-                        if(0 === destId) {
+                        if (0 === destId) {
                             destId = null;
                         }
-                        if(0 === sourceId) {
+                        if (0 === sourceId) {
                             sourceId = null;
                         }
 
@@ -377,6 +377,10 @@
                 if (this.resetFormAfter) {
                     this.resetTransactions();
                 }
+
+                let button = $(e.currentTarget);
+                button.prop("disabled", true);
+
                 axios.post(uri, data)
                     .then(response => {
                         if (this.createAnother) {
@@ -386,6 +390,7 @@
                             if (this.resetFormAfter) {
                                 this.addTransaction();
                             }
+                            button.prop("disabled", false);
                         } else {
                             window.location.href = 'transactions/show/' + response.data.data.id + '?message=created';
                         }
@@ -394,6 +399,7 @@
                     // something something render errors.
                     this.parseErrors(error.response.data);
                     // something.
+                    button.prop("disabled", false);
                 });
                 if (e) {
                     e.preventDefault();
