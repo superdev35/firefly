@@ -49,6 +49,7 @@ class UpgradeSkeleton extends Command
      */
     public function handle(): int
     {
+        $start = microtime(true);
         if ($this->isExecuted() && true !== $this->option('force')) {
             $this->warn('This command has already been executed.');
 
@@ -57,6 +58,10 @@ class UpgradeSkeleton extends Command
         $this->warn('Congrats, you found the skeleton command. Boo!');
 
         //$this->markAsExecuted();
+
+        $end = round(microtime(true) - $start, 2);
+        $this->info(sprintf('in %s seconds.', $end));
+
         return 0;
     }
 
