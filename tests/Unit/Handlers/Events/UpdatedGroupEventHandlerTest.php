@@ -1,6 +1,6 @@
 <?php
 /**
- * UpdatedJournalEventHandlerTest.php
+ * UpdatedGroupEventHandlerTest.php
  * Copyright (c) 2018 thegrumpydictator@gmail.com
  *
  * This file is part of Firefly III.
@@ -23,9 +23,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Handlers\Events;
 
-use FireflyIII\Events\StoredTransactionGroup;
 use FireflyIII\Events\UpdatedTransactionGroup;
-use FireflyIII\Handlers\Events\StoredGroupEventHandler;
 use FireflyIII\Handlers\Events\UpdatedGroupEventHandler;
 use FireflyIII\TransactionRules\Engine\RuleEngine;
 use Log;
@@ -34,7 +32,7 @@ use Tests\TestCase;
 /**
  * Class UpdatedJournalEventHandlerTest
  */
-class UpdatedJournalEventHandlerTest extends TestCase
+class UpdatedGroupEventHandlerTest extends TestCase
 {
     /**
      *
@@ -56,7 +54,7 @@ class UpdatedJournalEventHandlerTest extends TestCase
 
         $ruleEngine->shouldReceive('setUser')->atLeast()->once();
         $ruleEngine->shouldReceive('setAllRules')->atLeast()->once()->withArgs([true]);
-        $ruleEngine->shouldReceive('setTriggerMode')->atLeast()->once()->withArgs([RuleEngine::TRIGGER_STORE]);
+        $ruleEngine->shouldReceive('setTriggerMode')->atLeast()->once()->withArgs([RuleEngine::TRIGGER_UPDATE]);
         $ruleEngine->shouldReceive('processTransactionJournal')->atLeast()->once();
 
         $event   = new UpdatedTransactionGroup($group);
