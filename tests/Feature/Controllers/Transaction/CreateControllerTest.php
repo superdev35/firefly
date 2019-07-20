@@ -44,6 +44,9 @@ class CreateControllerTest extends TestCase
         Log::info(sprintf('Now in %s.', get_class($this)));
     }
 
+    /**
+     * @covers \FireflyIII\Http\Controllers\Transaction\CreateController
+     */
     public function testCreate(): void
     {
         $this->mockDefaultSession();
