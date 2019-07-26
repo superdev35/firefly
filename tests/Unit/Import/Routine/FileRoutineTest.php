@@ -25,9 +25,11 @@ namespace Tests\Unit\Import\Routine;
 
 
 use FireflyIII\Exceptions\FireflyException;
+use FireflyIII\Import\Routine\BunqRoutine;
 use FireflyIII\Import\Routine\FileRoutine;
 use FireflyIII\Models\ImportJob;
 use FireflyIII\Repositories\ImportJob\ImportJobRepositoryInterface;
+use FireflyIII\Support\Import\Routine\Bunq\StageImportDataHandler;
 use FireflyIII\Support\Import\Routine\File\CSVProcessor;
 use Log;
 use Mockery;
@@ -55,35 +57,35 @@ class FileRoutineTest extends TestCase
     {
         $job                = new ImportJob;
         $job->user_id       = $this->user()->id;
-        $job->key           = 'a_fr_' . random_int(1, 10000);
+        $job->key           = 'brY_' . $this->randomInt();
         $job->status        = 'ready_to_run';
-        $job->stage         = 'ready_to_run';
-        $job->provider      = 'file';
+        $job->stage         = 'go-for-import';
+        $job->provider      = 'bunq';
         $job->file_type     = '';
         $job->configuration = [];
         $job->save();
 
-        // mock
-        $processor  = $this->mock(CSVProcessor::class);
+        // mock stuff:
         $repository = $this->mock(ImportJobRepositoryInterface::class);
+        $handler    = $this->mock(StageImportDataHandler::class);
 
-        // calls
+
         $repository->shouldReceive('setUser')->once();
-        $repository->shouldReceive('setStatus')->withArgs([Mockery::any(), 'running'])->once();
-        $repository->shouldReceive('setStatus')->withArgs([Mockery::any(), 'provider_finished'])->once();
-        $repository->shouldReceive('setStage')->withArgs([Mockery::any(), 'final'])->once();
-        $repository->shouldReceive('setTransactions')->withArgs([Mockery::any(), ['a' => 'b']])->once();
-        $repository->shouldReceive('getConfiguration')->withArgs([Mockery::any()])->once()->andReturn([]);
-        $processor->shouldReceive('setImportJob')->once();
-        $processor->shouldReceive('run')->once()->andReturn(['a' => 'b']);
+        $repository->shouldReceive('setStatus')->withArgs([Mockery::any(), 'running']);
+        $repository->shouldReceive('setStatus')->withArgs([Mockery::any(), 'provider_finished']);
+        $repository->shouldReceive('setStage')->withArgs([Mockery::any(), 'final']);
+        $repository->shouldReceive('appendTransactions')->withArgs([Mockery::any(), ['a' => 'c']])->once();
 
-
-        $routine = new FileRoutine;
+        $handler->shouldReceive('setImportJob')->once();
+        $handler->shouldReceive('run')->once();
+        $handler->shouldReceive('getTransactions')->once()->andReturn(['a' => 'c']);
+        $handler->shouldReceive('isStillRunning')->andReturn(false);
+        $routine = new BunqRoutine;
         $routine->setImportJob($job);
         try {
             $routine->run();
         } catch (FireflyException $e) {
-            $this->assertTrue(false, $e->getMessage());
+            $this->assertFalse(true, $e->getMessage());
         }
     }
 }
