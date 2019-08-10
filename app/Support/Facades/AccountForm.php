@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @codeCoverageIgnore
- * Class ExpandedForm.
+ * Class AccountForm.
  *
  */
 class AccountForm extends Facade
