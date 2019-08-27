@@ -68,6 +68,7 @@ class IndexController extends Controller
     }
 
     /**
+     * TODO the notes of a recurrence are pretty pointless at this moment.
      * Show all recurring transactions.
      *
      * @param Request $request
@@ -106,35 +107,6 @@ class IndexController extends Controller
         $this->verifyRecurringCronJob();
 
         return view('recurring.index', compact('paginator', 'page', 'pageSize', 'total'));
-    }
-
-    /**
-     * Show a single recurring transaction.
-     *
-     * @param Recurrence $recurrence
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws FireflyException
-     */
-    public function show(Recurrence $recurrence)
-    {
-        /** @var RecurrenceTransformer $transformer */
-        $transformer = app(RecurrenceTransformer::class);
-        $transformer->setParameters(new ParameterBag);
-
-        $array  = $transformer->transform($recurrence);
-        $groups = $this->recurring->getTransactions($recurrence);
-
-        // transform dates back to Carbon objects:
-        foreach ($array['recurrence_repetitions'] as $index => $repetition) {
-            foreach ($repetition['occurrences'] as $item => $occurrence) {
-                $array['recurrence_repetitions'][$index]['occurrences'][$item] = new Carbon($occurrence);
-            }
-        }
-
-        $subTitle = (string)trans('firefly.overview_for_recurrence', ['title' => $recurrence->title]);
-
-        return view('recurring.show', compact('recurrence', 'subTitle', 'array', 'groups'));
     }
 
 }
