@@ -22,7 +22,16 @@
 namespace FireflyIII\Support\Search;
 
 
+use Illuminate\Support\Collection;
+
+/**
+ * Interface GenericSearchInterface
+ */
 interface GenericSearchInterface
 {
+    /**
+     * @return Collection
+     */
+    public function search(): Collection;
 
 }
