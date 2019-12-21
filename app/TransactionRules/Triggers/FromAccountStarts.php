@@ -78,12 +78,22 @@ final class FromAccountStarts extends AbstractTrigger implements TriggerInterfac
         $part       = substr($source->name, 0, strlen($search));
 
         if ($part === $search) {
-            Log::debug(sprintf('RuleTrigger FromAccountStarts for journal #%d: "%s" starts with "%s", return true.', $journal->id, $name, $search));
+            Log::debug(
+                sprintf(
+                    'RuleTrigger %s for journal #%d: "%s" starts with "%s", return true.',
+                    get_class($this), $journal->id, $source->name, $search
+                )
+            );
 
             return true;
         }
 
-        Log::debug(sprintf('RuleTrigger FromAccountStarts for journal #%d: "%s" does not start with "%s", return false.', $journal->id, $name, $search));
+        Log::debug(
+            sprintf(
+                'RuleTrigger %s for journal #%d: "%s" does not start with "%s", return false.',
+                get_class($this), $journal->id, $source->name, $search
+            )
+        );
 
         return false;
     }
