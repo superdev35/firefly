@@ -37,7 +37,7 @@ use Tests\TestCase;
 class FromAccountNumberContainsTest extends TestCase
 {
     /**
-     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountContains
+     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountNumberContains
      */
     public function testTriggeredBoth(): void
     {
@@ -66,7 +66,7 @@ class FromAccountNumberContainsTest extends TestCase
     }
 
     /**
-     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountContains
+     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountNumberContains
      */
     public function testTriggeredIban(): void
     {
@@ -86,7 +86,7 @@ class FromAccountNumberContainsTest extends TestCase
     }
 
     /**
-     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountContains
+     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountNumberContains
      */
     public function testTriggeredNot(): void
     {
@@ -97,13 +97,13 @@ class FromAccountNumberContainsTest extends TestCase
         $account = $this->user()->accounts()->inRandomOrder()->first();
         $repository->shouldReceive('getSourceAccount')->once()->andReturn($account);
 
-        $trigger = FromAccountContains::makeFromStrings('some name' . random_int(1, 234), false);
+        $trigger = FromAccountNumberContains::makeFromStrings('some name' . random_int(1, 234), false);
         $result  = $trigger->triggered($journal);
         $this->assertFalse($result);
     }
 
     /**
-     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountContains
+     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountNumberContains
      */
     public function testTriggeredNumber(): void
     {
@@ -127,35 +127,35 @@ class FromAccountNumberContainsTest extends TestCase
     }
 
     /**
-     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountContains
+     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountNumberContains
      */
     public function testWillMatchEverythingEmpty(): void
     {
         $repository = $this->mock(JournalRepositoryInterface::class);
         $value      = '';
-        $result     = FromAccountContains::willMatchEverything($value);
+        $result     = FromAccountNumberContains::willMatchEverything($value);
         $this->assertTrue($result);
     }
 
     /**
-     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountContains
+     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountNumberContains
      */
     public function testWillMatchEverythingNotNull(): void
     {
         $repository = $this->mock(JournalRepositoryInterface::class);
         $value      = 'x';
-        $result     = FromAccountContains::willMatchEverything($value);
+        $result     = FromAccountNumberContains::willMatchEverything($value);
         $this->assertFalse($result);
     }
 
     /**
-     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountContains
+     * @covers \FireflyIII\TransactionRules\Triggers\FromAccountNumberContains
      */
     public function testWillMatchEverythingNull(): void
     {
         $repository = $this->mock(JournalRepositoryInterface::class);
         $value      = null;
-        $result     = FromAccountContains::willMatchEverything($value);
+        $result     = FromAccountNumberContains::willMatchEverything($value);
         $this->assertTrue($result);
     }
 }
