@@ -101,7 +101,7 @@ function stopSorting() {
         }
         if (position < i) {
             // position is less.
-            console.log('"' + name + '" ("' + objectGroupTitle + '") has moved up from position ' + originalOrder + ' to ' + (i + 1));
+            console.log('"' + name + '" ("' + objectGroupTitle + '") has moved down from position ' + originalOrder + ' to ' + (i + 1));
         }
         if (position > i) {
             console.log('"' + name + '" ("' + objectGroupTitle + '") has moved up from position ' + originalOrder + ' to ' + (i + 1));
