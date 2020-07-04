@@ -24,8 +24,8 @@
             <h3 class="card-title">{{ $t('firefly.yourAccounts') }}</h3>
         </div>
         <div class="card-body">
-            <div class="main-account-chart">
-                <main-account-chart v-if="loaded" :styles="myStyles" :options="chartOptions" :chart-data="chartData"></main-account-chart>
+            <div>
+                <main-account-chart v-if="loaded" :styles="chartStyles" :options="chartOptions" :chart-data="chartData"></main-account-chart>
             </div>
         </div>
         <div class="card-footer">
@@ -67,7 +67,7 @@
 
         },
         computed: {
-            myStyles() {
+            chartStyles() {
                 return {
                     height: '400px',
                     'max-height': '400px',
@@ -79,8 +79,3 @@
         name: "MainAccount"
     }
 </script>
-<style scoped>
-    .main-account-chart {
-    }
-
-</style>
