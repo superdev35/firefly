@@ -52,8 +52,6 @@
         },
         mounted() {
             this.chartOptions = DefaultLineOptions.methods.getDefaultOptions();
-
-
             this.loaded = false;
             axios.get('./api/v1/chart/account/overview?start=' + window.sessionStart + '&end=' + window.sessionEnd)
                 .then(response => {
