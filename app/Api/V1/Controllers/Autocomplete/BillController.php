@@ -39,9 +39,7 @@ class BillController extends Controller
     private BillRepositoryInterface $repository;
 
     /**
-     * TransactionController constructor.
-     *
-     * @codeCoverageIgnore
+     * BillController constructor.
      */
     public function __construct()
     {
