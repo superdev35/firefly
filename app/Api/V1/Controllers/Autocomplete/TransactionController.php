@@ -25,6 +25,11 @@ namespace FireflyIII\Api\V1\Controllers\Autocomplete;
 
 
 use FireflyIII\Api\V1\Controllers\Controller;
+use FireflyIII\Api\V1\Requests\Autocomplete\AutocompleteRequest;
+use FireflyIII\Models\TransactionJournal;
+use FireflyIII\Repositories\Journal\JournalRepositoryInterface;
+use FireflyIII\User;
+use Illuminate\Http\JsonResponse;
 
 /**
  * Class TransactionController
@@ -32,4 +37,50 @@ use FireflyIII\Api\V1\Controllers\Controller;
 class TransactionController extends Controller
 {
 
+    private JournalRepositoryInterface $repository;
+
+    /**
+     * TransactionController constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware(
+            function ($request, $next) {
+                /** @var User $user */
+                $user             = auth()->user();
+                $this->repository = app(JournalRepositoryInterface::class);
+                $this->repository->setUser($user);
+
+                return $next($request);
+            }
+        );
+    }
+
+
+    /**
+     * @param AutocompleteRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function allJournals(AutocompleteRequest $request): JsonResponse
+    {
+        $data   = $request->getData();
+        $result = $this->repository->searchJournalDescriptions($data['query'], $data['limit']);
+
+        // limit and unique
+        $filtered = $result->unique('description');
+        $array    = [];
+
+        /** @var TransactionJournal $journal */
+        foreach ($filtered as $journal) {
+            $array[] = [
+                'id'          => $journal->id,
+                'name'        => $journal->description,
+                'description' => $journal->description,
+            ];
+        }
+
+        return response()->json($array);
+    }
 }
