@@ -23,20 +23,17 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use FireflyIII\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Tests\Traits\MocksDefaultValues;
+use Tests\Traits\TestHelpers;
 
 /**
  * Class TestCase
- *
- * @SuppressWarnings(PHPMD.NumberOfChildren)
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
- * @SuppressWarnings(PHPMD.TooManyPublicMethods)
- * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
+    use CreatesApplication, MocksDefaultValues, TestHelpers;
 
     /**
      * @return array
@@ -53,5 +50,14 @@ abstract class TestCase extends BaseTestCase
             'custom range' => ['custom'],
         ];
     }
+
+    /**
+     * @return User
+     */
+    public function user(): User
+    {
+        return User::find(1);
+    }
+
 
 }
