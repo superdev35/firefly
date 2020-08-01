@@ -66,7 +66,7 @@
         },
         data() {
             return {
-                selected: this.value,
+                selected: this.value ?? 0,
                 budgets: [],
             }
         },
