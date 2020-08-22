@@ -28,8 +28,25 @@ use Illuminate\Support\Collection;
  */
 interface RuleEngineInterface
 {
+    /**
+     * Add rules for the engine to execute.
+     *
+     * @param Collection $rules
+     */
     public function setRules(Collection $rules): void;
 
+    /**
+     * Add entire rule groups for the engine to execute.
+     *
+     * @param Collection $ruleGroups
+     */
     public function setRuleGroups(Collection $ruleGroups): void;
+
+    /**
+     * Add operators added to each search by the rule engine.
+     *
+     * @param array $operator
+     */
+    public function addOperator(array $operator): void;
 
 }
