@@ -26,7 +26,6 @@ use Tests\TestCase;
 
 /**
  * Class FixGroupAccountsTest
- * @package Tests\Feature\Console\Commands\Correction
  */
 class FixGroupAccountsTest extends TestCase
 {
