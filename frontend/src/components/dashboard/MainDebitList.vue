@@ -47,7 +47,7 @@
       </table>
     </div>
     <div class="card-footer">
-      <a href="./transactions/withdrawals" class="btn btn-default button-sm"><i class="far fa-money-bill-alt"></i> {{ $t('firefly.go_to_expenses') }}</a>
+      <a href="./transactions/withdrawal" class="btn btn-default button-sm"><i class="far fa-money-bill-alt"></i> {{ $t('firefly.go_to_withdrawals') }}</a>
     </div>
   </div>
 </template>
@@ -91,13 +91,7 @@ export default {
 
         }
       }
-      console.log(this.expenses);
-      // sort:
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>
