@@ -20,23 +20,24 @@
 
 <template>
   <div class="form-group">
-    <div class="col">
-      <div class="input-group">
-        <input
-            ref="description"
-            :title="$t('firefly.description')"
-            v-model="description"
-            autocomplete="off"
-            autofocus
-            class="form-control"
-            name="description[]"
-            type="text"
-            :placeholder="$t('firefly.description')"
-            v-on:submit.prevent
-        >
-        <div class="input-group-append">
-          <button v-on:click="clearDescription" class="btn btn-outline-secondary" type="button"><i class="far fa-trash-alt"></i></button>
-        </div>
+    <div class="text-xs d-none d-lg-block d-xl-block">
+      {{ $t('firefly.description') }}
+    </div>
+    <div class="input-group">
+      <input
+          ref="description"
+          :title="$t('firefly.description')"
+          v-model="description"
+          autocomplete="off"
+          autofocus
+          class="form-control"
+          name="description[]"
+          type="text"
+          :placeholder="$t('firefly.description')"
+          v-on:submit.prevent
+      >
+      <div class="input-group-append">
+        <button v-on:click="clearDescription" class="btn btn-outline-secondary" type="button"><i class="far fa-trash-alt"></i></button>
       </div>
     </div>
   </div>
@@ -50,7 +51,7 @@ import {createNamespacedHelpers} from "vuex";
 const {mapState, mapGetters, mapActions, mapMutations} = createNamespacedHelpers('transactions/create')
 
 export default {
-  props: ['value', 'index'],
+  props: ['index'],
   name: "TransactionDescription",
   methods: {
     ...mapMutations(
@@ -58,21 +59,20 @@ export default {
           'updateField',
         ],
     ),
-    clearDescription: function() {
+    clearDescription: function () {
       this.description = '';
     }
   },
   computed: {
     ...mapGetters([
-                    'transactionType', // -> this.someGetter
-                    'transactions', // -> this.someOtherGetter
+                    'transactionType',
+                    'transactions',
                   ]),
     description: {
       get() {
         return this.transactions[this.index].description;
       },
       set(value) {
-        console.log('I am set ' + value + ' ' + this.index);
         this.updateField({field: 'description', index: this.index, value: value});
       }
     }
