@@ -20,9 +20,6 @@
 
 <template>
   <div class="form-group">
-    <div class="text-xs d-none d-lg-block d-xl-block">
-      {{ $t('firefly.description') }}
-    </div>
     <vue-typeahead-bootstrap
         inputName="description[]"
         v-model="value"
@@ -30,6 +27,7 @@
         :placeholder="$t('firefly.description')"
         :showOnFocus=true
         autofocus
+        :inputClass="errors.length > 0 ? 'is-invalid' : ''"
         :minMatchingChars="3"
         :serializer="item => item.description"
         @input="lookupDescription"
@@ -40,12 +38,13 @@
         </div>
       </template>
     </vue-typeahead-bootstrap>
+    <span v-if="errors.length > 0">
+      <span v-for="error in errors" class="text-danger small">{{ error }}<br/></span>
+    </span>
   </div>
-
 </template>
 
 <script>
-
 
 import {createNamespacedHelpers} from "vuex";
 import VueTypeaheadBootstrap from 'vue-typeahead-bootstrap';
@@ -54,7 +53,7 @@ import {debounce} from "lodash";
 const {mapState, mapGetters, mapActions, mapMutations} = createNamespacedHelpers('transactions/create')
 
 export default {
-  props: ['index', 'value'],
+  props: ['index', 'value', 'errors'],
   components: {VueTypeaheadBootstrap},
   name: "TransactionDescription",
   data() {
@@ -63,7 +62,6 @@ export default {
       initialSet: []
     }
   },
-
   created() {
     axios.get(this.getACURL(''))
         .then(response => {
