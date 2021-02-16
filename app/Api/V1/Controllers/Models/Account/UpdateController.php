@@ -27,8 +27,6 @@ use FireflyIII\Api\V1\Controllers\Controller;
 use FireflyIII\Api\V1\Requests\AccountUpdateRequest;
 use FireflyIII\Models\Account;
 use FireflyIII\Repositories\Account\AccountRepositoryInterface;
-use FireflyIII\Support\Http\Api\AccountFilter;
-use FireflyIII\Support\Http\Api\TransactionFilter;
 use FireflyIII\Transformers\AccountTransformer;
 use Illuminate\Http\JsonResponse;
 use League\Fractal\Resource\Item;
@@ -38,8 +36,6 @@ use League\Fractal\Resource\Item;
  */
 class UpdateController extends Controller
 {
-    use AccountFilter, TransactionFilter;
-
     public const RESOURCE_KEY = 'accounts';
 
     private AccountRepositoryInterface $repository;
