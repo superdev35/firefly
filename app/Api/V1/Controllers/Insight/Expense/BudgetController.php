@@ -23,7 +23,7 @@ namespace FireflyIII\Api\V1\Controllers\Insight\Expense;
 
 
 use FireflyIII\Api\V1\Controllers\Controller;
-use FireflyIII\Api\V1\Requests\Insight\ExpenseRequest;
+use FireflyIII\Api\V1\Requests\Insight\GenericRequest;
 use FireflyIII\Models\Budget;
 use FireflyIII\Repositories\Budget\BudgetRepositoryInterface;
 use FireflyIII\Repositories\Budget\NoBudgetRepositoryInterface;
@@ -64,11 +64,11 @@ class BudgetController extends Controller
     }
 
     /**
-     * @param ExpenseRequest $request
+     * @param GenericRequest $request
      *
      * @return JsonResponse
      */
-    public function budget(ExpenseRequest $request): JsonResponse
+    public function budget(GenericRequest $request): JsonResponse
     {
         $start         = $request->getStart();
         $end           = $request->getEnd();
@@ -98,11 +98,11 @@ class BudgetController extends Controller
     }
 
     /**
-     * @param ExpenseRequest $request
+     * @param GenericRequest $request
      *
      * @return JsonResponse
      */
-    public function noBudget(ExpenseRequest $request): JsonResponse
+    public function noBudget(GenericRequest $request): JsonResponse
     {
         $start         = $request->getStart();
         $end           = $request->getEnd();

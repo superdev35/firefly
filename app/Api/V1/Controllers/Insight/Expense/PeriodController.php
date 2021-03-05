@@ -23,7 +23,7 @@ namespace FireflyIII\Api\V1\Controllers\Insight\Expense;
 
 
 use FireflyIII\Api\V1\Controllers\Controller;
-use FireflyIII\Api\V1\Requests\Insight\ExpenseRequest;
+use FireflyIII\Api\V1\Requests\Insight\GenericRequest;
 use FireflyIII\Helpers\Collector\GroupCollectorInterface;
 use FireflyIII\Models\TransactionType;
 use Illuminate\Http\JsonResponse;
@@ -35,11 +35,11 @@ class PeriodController extends Controller
 {
 
     /**
-     * @param ExpenseRequest $request
+     * @param GenericRequest $request
      *
      * @return JsonResponse
      */
-    public function total(ExpenseRequest $request): JsonResponse
+    public function total(GenericRequest $request): JsonResponse
     {
         $accounts = $request->getAssetAccounts();
         $start    = $request->getStart();
