@@ -22,11 +22,11 @@
 namespace FireflyIII\Api\V1\Controllers\Insight\Expense;
 
 
-use Carbon\Carbon;
 use FireflyIII\Api\V1\Controllers\Controller;
-use FireflyIII\Api\V1\Requests\DateRequest;
+use FireflyIII\Api\V1\Requests\Insight\ExpenseRequest;
 use FireflyIII\Models\Budget;
 use FireflyIII\Repositories\Budget\BudgetRepositoryInterface;
+use FireflyIII\Repositories\Budget\NoBudgetRepositoryInterface;
 use FireflyIII\Repositories\Budget\OperationsRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
@@ -38,6 +38,7 @@ class BudgetController extends Controller
 {
     private OperationsRepositoryInterface $opsRepository;
     private BudgetRepositoryInterface     $repository;
+    private NoBudgetRepositoryInterface   $noRepository;
 
     /**
      * AccountController constructor.
@@ -51,8 +52,11 @@ class BudgetController extends Controller
             function ($request, $next) {
                 $this->opsRepository = app(OperationsRepositoryInterface::class);
                 $this->repository    = app(BudgetRepositoryInterface::class);
-                $this->opsRepository->setUser(auth()->user());
-                $this->repository->setUser(auth()->user());
+                $this->noRepository  = app(NoBudgetRepositoryInterface::class);
+                $user                = auth()->user();
+                $this->opsRepository->setUser($user);
+                $this->repository->setUser($user);
+                $this->noRepository->setUser($user);
 
                 return $next($request);
             }
@@ -60,22 +64,23 @@ class BudgetController extends Controller
     }
 
     /**
-     * @param DateRequest $request
+     * @param ExpenseRequest $request
      *
      * @return JsonResponse
      */
-    public function budget(DateRequest $request): JsonResponse
+    public function budget(ExpenseRequest $request): JsonResponse
     {
-        $dates = $request->getAll();
-        /** @var Carbon $start */
-        $start = $dates['start'];
-        /** @var Carbon $end */
-        $end     = $dates['end'];
-        $result  = [];
-        $budgets = $this->repository->getActiveBudgets();
+        $start         = $request->getStart();
+        $end           = $request->getEnd();
+        $budgets       = $request->getBudgets();
+        $assetAccounts = $request->getAssetAccounts();
+        $result        = [];
+        if (0 === $budgets->count()) {
+            $budgets = $this->repository->getActiveBudgets();
+        }
         /** @var Budget $budget */
         foreach ($budgets as $budget) {
-            $expenses = $this->opsRepository->sumExpenses($start, $end, null, new Collection([$budget]), null);
+            $expenses = $this->opsRepository->sumExpenses($start, $end, $assetAccounts, new Collection([$budget]), null);
             /** @var array $expense */
             foreach ($expenses as $expense) {
                 $result[] = [
@@ -90,6 +95,32 @@ class BudgetController extends Controller
         }
 
         return response()->json($result);
+    }
+
+    /**
+     * @param ExpenseRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function noBudget(ExpenseRequest $request): JsonResponse
+    {
+        $start         = $request->getStart();
+        $end           = $request->getEnd();
+        $assetAccounts = $request->getAssetAccounts();
+        $result        = [];
+        $expenses      = $this->noRepository->sumExpenses($start, $end, $assetAccounts, null);
+        /** @var array $expense */
+        foreach ($expenses as $expense) {
+            $result[] = [
+                'difference'       => $expense['sum'],
+                'difference_float' => (float)$expense['sum'],
+                'currency_id'      => (string)$expense['currency_id'],
+                'currency_code'    => $expense['currency_code'],
+            ];
+        }
+
+        return response()->json($result);
+
     }
 
 }
