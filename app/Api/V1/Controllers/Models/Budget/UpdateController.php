@@ -23,7 +23,7 @@ namespace FireflyIII\Api\V1\Controllers\Models\Budget;
 
 
 use FireflyIII\Api\V1\Controllers\Controller;
-use FireflyIII\Api\V1\Requests\BudgetUpdateRequest;
+use FireflyIII\Api\V1\Requests\Models\Budget\UpdateRequest;
 use FireflyIII\Models\Budget;
 use FireflyIII\Repositories\Budget\BudgetRepositoryInterface;
 use FireflyIII\Transformers\BudgetTransformer;
@@ -58,12 +58,12 @@ class UpdateController extends Controller
     /**
      * Update a budget.
      *
-     * @param BudgetUpdateRequest $request
-     * @param Budget              $budget
+     * @param UpdateRequest $request
+     * @param Budget        $budget
      *
      * @return JsonResponse
      */
-    public function update(BudgetUpdateRequest $request, Budget $budget): JsonResponse
+    public function update(UpdateRequest $request, Budget $budget): JsonResponse
     {
         $data    = $request->getAll();
         $budget  = $this->repository->update($budget, $data);

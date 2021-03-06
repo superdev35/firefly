@@ -23,7 +23,7 @@ namespace FireflyIII\Api\V1\Controllers\Models\Budget;
 
 
 use FireflyIII\Api\V1\Controllers\Controller;
-use FireflyIII\Api\V1\Requests\BudgetStoreRequest;
+use FireflyIII\Api\V1\Requests\Models\Budget\StoreRequest;
 use FireflyIII\Exceptions\FireflyException;
 use FireflyIII\Repositories\Budget\BudgetRepositoryInterface;
 use FireflyIII\Transformers\BudgetTransformer;
@@ -59,13 +59,13 @@ class StoreController extends Controller
     /**
      * Store a budget.
      *
-     * @param BudgetStoreRequest $request
+     * @param StoreRequest $request
      *
      * @return JsonResponse
      * @throws FireflyException
      *
      */
-    public function store(BudgetStoreRequest $request): JsonResponse
+    public function store(StoreRequest $request): JsonResponse
     {
         $budget  = $this->repository->store($request->getAll());
         $manager = $this->getManager();
