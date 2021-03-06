@@ -23,7 +23,7 @@ namespace FireflyIII\Api\V1\Controllers\Models\PiggyBank;
 
 
 use FireflyIII\Api\V1\Controllers\Controller;
-use FireflyIII\Api\V1\Requests\PiggyBankUpdateRequest;
+use FireflyIII\Api\V1\Requests\Models\PiggyBank\UpdateRequest;
 use FireflyIII\Models\PiggyBank;
 use FireflyIII\Repositories\PiggyBank\PiggyBankRepositoryInterface;
 use FireflyIII\Transformers\PiggyBankTransformer;
@@ -59,17 +59,17 @@ class UpdateController extends Controller
     /**
      * Update piggy bank.
      *
-     * @param PiggyBankUpdateRequest $request
+     * @param UpdateRequest $request
      * @param PiggyBank        $piggyBank
      *
      * @return JsonResponse
      */
-    public function update(PiggyBankUpdateRequest $request, PiggyBank $piggyBank): JsonResponse
+    public function update(UpdateRequest $request, PiggyBank $piggyBank): JsonResponse
     {
         $data      = $request->getAll();
         $piggyBank = $this->repository->update($piggyBank, $data);
 
-        if ('' !== $data['current_amount']) {
+        if (array_key_exists('current_amount', $data) && '' !== $data['current_amount']) {
             $this->repository->setCurrentAmount($piggyBank, $data['current_amount']);
         }
 
