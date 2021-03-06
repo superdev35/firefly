@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace FireflyIII\Api\V1\Controllers\Models\Account;
 
 use FireflyIII\Api\V1\Controllers\Controller;
-use FireflyIII\Api\V1\Requests\AccountUpdateRequest;
+use FireflyIII\Api\V1\Requests\Models\Account\UpdateRequest;
 use FireflyIII\Models\Account;
 use FireflyIII\Repositories\Account\AccountRepositoryInterface;
 use FireflyIII\Transformers\AccountTransformer;
@@ -62,12 +62,12 @@ class UpdateController extends Controller
     /**
      * Update account.
      *
-     * @param AccountUpdateRequest $request
+     * @param UpdateRequest $request
      * @param Account              $account
      *
      * @return JsonResponse
      */
-    public function update(AccountUpdateRequest $request, Account $account): JsonResponse
+    public function update(UpdateRequest $request, Account $account): JsonResponse
     {
         $data         = $request->getUpdateData();
         $data['type'] = config('firefly.shortNamesByFullName.' . $account->accountType->type);
