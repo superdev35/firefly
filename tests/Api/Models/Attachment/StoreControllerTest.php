@@ -61,7 +61,7 @@ class StoreControllerTest extends TestCase
         }
         // run account store with a minimal data set:
         $route = 'api.v1.attachments.store';
-        $this->submitAndCompare($route, $submission);
+        $this->storeAndCompare($route, $submission);
     }
 
     /**
@@ -81,23 +81,7 @@ class StoreControllerTest extends TestCase
     {
         $minimalSets  = $this->minimalSets();
         $optionalSets = $this->optionalSets();
-        $regenConfig  = [
-            //            'name'           => function () {
-            //                $faker = Factory::create();
-            //
-            //                return $faker->name;
-            //            },
-            //            'iban'           => function () {
-            //                $faker = Factory::create();
-            //
-            //                return $faker->iban();
-            //            },
-            //            'account_number' => function () {
-            //                $faker = Factory::create();
-            //
-            //                return $faker->iban();
-            //            },
-        ];
+        $regenConfig  = [];
 
         return $this->genericDataProvider($minimalSets, $optionalSets, $regenConfig);
     }
@@ -122,7 +106,7 @@ class StoreControllerTest extends TestCase
         return [
             'default_file' => [
                 'fields' => [
-                    'filename'        => $faker->randomAscii,
+                    'filename'        => join(' ', $faker->words(3)),
                     'attachable_type' => $type,
                     'attachable_id'   => '1',
                 ],
@@ -139,7 +123,7 @@ class StoreControllerTest extends TestCase
         return [
             'title' => [
                 'fields' => [
-                    'title' => $faker->randomAscii,
+                    'title' => join(' ', $faker->words(3)),
                 ],
             ],
             'notes' => [
