@@ -51,8 +51,8 @@ class StoreControllerTest extends TestCase
     /**
      * @param array $submission
      *
-     * @dataProvider storeDataProvider
-     * @ data Provider emptyDataProvider
+     * @ data Provider storeDataProvider
+     * @dataProvider emptyDataProvider
      */
     public function testStore(array $submission): void
     {
@@ -105,7 +105,8 @@ class StoreControllerTest extends TestCase
 
         return [
             'default_file' => [
-                'fields' => [
+                'parameters' => [],
+                'fields'     => [
                     'filename'        => join(' ', $faker->words(3)),
                     'attachable_type' => $type,
                     'attachable_id'   => '1',
@@ -119,7 +120,8 @@ class StoreControllerTest extends TestCase
      */
     private function optionalSets(): array
     {
-        $faker      = Factory::create();
+        $faker = Factory::create();
+
         return [
             'title' => [
                 'fields' => [
