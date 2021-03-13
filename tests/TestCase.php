@@ -33,8 +33,6 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, CollectsValues;
 
-    // MocksDefaultValues TestHelpers
-
     /**
      * @return array
      */
