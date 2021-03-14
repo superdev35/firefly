@@ -121,7 +121,7 @@ class UpdateControllerTest extends TestCase
                 'fields'       => [
                     'start' => ['test_value' => $faker->dateTimeBetween('-2 year', '-1 year')->format('Y-m-d')],
                 ],
-                'extra_ignore' => [],
+                'extra_ignore' => ['spent'],
             ],
             'end'           => [
                 'id'           => 1,
@@ -129,7 +129,7 @@ class UpdateControllerTest extends TestCase
                 'fields'       => [
                     'end' => ['test_value' => $faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d')],
                 ],
-                'extra_ignore' => [],
+                'extra_ignore' => ['spent'],
             ],
             'amount'        => [
                 'id'           => 1,
