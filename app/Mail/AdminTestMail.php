@@ -37,10 +37,8 @@ class AdminTestMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /** @var string Email address of admin */
-    public $email;
-    /** @var string IP address of admin */
-    public $ipAddress;
+    public string $email;
+    public string $ipAddress;
 
     /**
      * ConfirmEmailChangeMail constructor.
