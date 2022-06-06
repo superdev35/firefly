@@ -29,10 +29,10 @@ export default class Sum {
     return api.get(url, {params: {start: startStr, end: endStr}});
   }
 
-  // /*paid(start, end) {
-  //   let url = 'api/v2/bills/sum/paid';
-  //   let startStr = format(start, 'y-MM-dd');
-  //   let endStr = format(end, 'y-MM-dd');
-  //   return api.get(url, {params: {start: startStr, end: endStr}});
-  // }*/
+  spent(start, end) {
+    let url = 'api/v2/budgets/sum/spent';
+    let startStr = format(start, 'y-MM-dd');
+    let endStr = format(end, 'y-MM-dd');
+    return api.get(url, {params: {start: startStr, end: endStr}});
+  }
 }
