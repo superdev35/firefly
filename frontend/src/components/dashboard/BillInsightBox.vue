@@ -26,7 +26,7 @@
     <q-card bordered>
       <q-item>
         <q-item-section>
-          <q-item-label>{{ $t('firefly.bills_to_pay') }}</q-item-label>
+          <q-item-label><strong>{{ $t('firefly.bills_to_pay') }}</strong></q-item-label>
         </q-item-section>
       </q-item>
       <q-separator/>
@@ -41,36 +41,22 @@
           />
         </q-card-section>
         <q-separator vertical/>
-        <q-card-section>
-          {{ $t('firefly.bills_to_pay') }}:
+        <q-card-section v-if="0 === unpaid.length && 0 === paid.length">
+          You have no bills
+        </q-card-section>
+        <q-card-section v-if="unpaid.length > 0 || paid.length > 0">
+          <span :title="formatAmount(this.currency, this.unpaidAmount)">{{ $t('firefly.bills_to_pay') }}</span>:
           <span v-for="(bill, index) in unpaid">
-                                {{ formatAmount(bill.code, bill.sum) }}
-          <span v-if="index+1 !== unpaid.length">, </span>
-                            </span>
+            <span v-if="bill.native">(</span>{{ formatAmount(bill.code, bill.sum) }}<span
+            v-if="bill.native">)</span><span v-if="index+1 !== unpaid.length">, </span></span>
           <br/>
-          {{ $t('firefly.bills_paid') }}:
-          <span v-for="(bill, index) in paid">
-                                {{ formatAmount(bill.code, bill.sum) }}
-          <span v-if="index+1 !== paid.length">, </span>
-                            </span>
+          <span :title="formatAmount(this.currency, this.paidAmount)">{{ $t('firefly.bills_paid') }}</span>:
+          <span v-for="(bill, index) in paid"><span v-if="bill.native">(</span>{{
+              formatAmount(bill.code, bill.sum)
+            }}<span v-if="bill.native">)</span><span
+              v-if="index+1 !== paid.length">, </span></span>
         </q-card-section>
       </q-card-section>
-      <!--
-      <q-card-section class="q-pt-xs">
-        <div class="text-overline">
-
-          <span class="float-right">
-            <span class="text-grey-4 fas fa-redo-alt" style="cursor: pointer;" @click="triggerForcedUpgrade"></span>
-          </span>
-        </div>
-      </q-card-section>
-      <q-card-section class="q-pt-xs">
-        <span v-for="(bill, index) in unpaid">
-                                {{ formatAmount(bill.code, bill.sum) }}
-          <span v-if="index+1 !== unpaid.length">, </span>
-                            </span>
-      </q-card-section>
-      -->
     </q-card>
   </div>
 </template>
@@ -85,7 +71,7 @@ export default {
       store: null,
       unpaid: [],
       paid: [],
-      //percentage: 0,
+      currency: 'EUR',
       unpaidAmount: 0.0,
       paidAmount: 0.0,
       range: {
@@ -100,16 +86,18 @@ export default {
       if (0 === this.unpaidAmount) {
         return 100;
       }
-      const sum = this.unpaidAmount + this.paidAmount;
       if (0.0 === this.paidAmount) {
         return 0;
       }
-      return (this.paidAmount / sum) * 100;
+      const pct = (this.paidAmount / this.unpaidAmount) * 100;
+      if (pct > 100) {
+        return 100;
+      }
+      return pct;
     }
   },
   mounted() {
     this.store = useFireflyIIIStore();
-
     // TODO this code snippet is recycled a lot.
     if (null === this.range.start || null === this.range.end) {
       // subscribe, then update:
@@ -133,25 +121,30 @@ export default {
         const start = new Date(this.store.getRange.start);
         const end = new Date(this.store.getRange.end);
         const sum = new Sum;
+        this.currency = this.store.getCurrencyCode;
         sum.unpaid(start, end).then((response) => this.parseUnpaidResponse(response.data));
         sum.paid(start, end).then((response) => this.parsePaidResponse(response.data));
       }
     },
+    // TODO this method is recycled a lot.
     formatAmount: function (currencyCode, amount) {
-      // TODO not yet internationalized
-      return Intl.NumberFormat('en-US', {style: 'currency', currency: currencyCode}).format(amount);
+      return Intl.NumberFormat(this.store.getLocale, {style: 'currency', currency: currencyCode}).format(amount);
     },
     parseUnpaidResponse: function (data) {
       for (let i in data) {
         if (data.hasOwnProperty(i)) {
           const current = data[i];
+          const hasNative = current.native_id !== current.id && current.native_sum !== '0';
           this.unpaid.push(
             {
               sum: current.sum,
               code: current.code,
+              native: hasNative,
             }
           );
-          this.unpaidAmount = this.unpaidAmount + parseFloat(current.sum);
+          if (hasNative || current.native_id === current.id) {
+            this.unpaidAmount = this.unpaidAmount + parseFloat(current.native_sum);
+          }
         }
       }
     },
@@ -159,20 +152,20 @@ export default {
       for (let i in data) {
         if (data.hasOwnProperty(i)) {
           const current = data[i];
+          const hasNative = current.native_id !== current.id && parseFloat(current.native_sum) !== 0.0;
           this.paid.push(
             {
               sum: current.sum,
               code: current.code,
+              native: hasNative,
             }
           );
-          this.paidAmount = this.paidAmount + (parseFloat(current.sum) * -1);
+          if (hasNative || current.native_id === current.id) {
+            this.paidAmount = this.paidAmount + (parseFloat(current.native_sum) * -1);
+          }
         }
       }
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>
