@@ -23,7 +23,7 @@ namespace FireflyIII\Api\V2\Controllers\System;
 
 use FireflyIII\Api\V2\Controllers\Controller;
 use FireflyIII\Models\Preference;
-use FireflyIII\Transformers\PreferenceTransformer;
+use FireflyIII\Transformers\V2\PreferenceTransformer;
 use Illuminate\Http\JsonResponse;
 
 /**
