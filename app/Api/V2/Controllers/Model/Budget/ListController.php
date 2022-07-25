@@ -22,20 +22,38 @@
 namespace FireflyIII\Api\V2\Controllers\Model\Budget;
 
 use FireflyIII\Api\V2\Controllers\Controller;
+use FireflyIII\Repositories\Budget\BudgetRepositoryInterface;
 use FireflyIII\Transformers\V2\BudgetTransformer;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class ListController extends Controller
 {
+    private BudgetRepositoryInterface $repository;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware(
+            function ($request, $next) {
+                $this->repository = app(BudgetRepositoryInterface::class);
+                return $next($request);
+            }
+        );
+    }
+
     /**
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $collection  = new Collection;
-        $paginator   = new LengthAwarePaginator($collection, 0, 50, 1);
+        $collection  = $this->repository->getActiveBudgets();
+        $total = $collection->count();
+        $collection->slice($this->pageSize * $this->parameters->get('page'), $this->pageSize);
+
+        $paginator   = new LengthAwarePaginator($collection, $total, $this->pageSize, $this->parameters->get('page'));
         $transformer = new BudgetTransformer();
         return response()
             ->api($this->jsonApiList('budgets', $paginator, $transformer))
