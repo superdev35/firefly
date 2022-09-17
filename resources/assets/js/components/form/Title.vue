@@ -20,22 +20,21 @@
 
 <template>
   <div class="form-group" v-bind:class="{ 'has-error': hasError()}">
-    <div class="col-sm-12 text-sm">
+    <label class="col-sm-4 control-label">
       {{ $t('form.title') }}
-    </div>
-    <div class="col-sm-12">
+    </label>
+    <div class="col-sm-8">
       <div class="input-group">
         <input
             ref="title"
             :title="$t('form.title')"
-            :value="value"
+            v-model=title
             autocomplete="off"
             class="form-control"
             name="title"
             type="text"
-            v-bind:placeholder="$t('form.title')"
             @input="handleInput"
-            v-on:keypress="handleEnter" v-on:submit.prevent
+            v-bind:placeholder="$t('form.title')"
         >
         <span class="input-group-btn">
             <button
@@ -45,23 +44,6 @@
                 v-on:click="clearTitle"><i class="fa fa-trash-o"></i></button>
         </span>
       </div>
-      <typeahead
-          v-model="name"
-          :async-function="aSyncFunction"
-          :open-on-empty=true
-          :open-on-focus=true
-          :target="target"
-          item-key="description"
-          v-on:input="selectedItem"
-      >
-        <template slot="item" slot-scope="props">
-          <li v-for="(item, index) in props.items" :class="{active:props.activeIndex===index}">
-            <a role="button" @click="props.select(item)">
-              <span v-html="betterHighlight(item)"></span>
-            </a>
-          </li>
-        </template>
-      </typeahead>
       <ul v-for="error in this.error" class="list-unstyled">
         <li class="text-danger">{{ error }}</li>
       </ul>
@@ -71,86 +53,38 @@
 
 <script>
 export default {
-  props: ['error', 'value', 'url'],
+  props: {
+    error: {
+      type: Array,
+      required: true,
+      default() {
+        return []
+      }
+    },
+    value: {
+      type: String,
+      required: true,
+    }
+  },
   name: "Title",
   mounted() {
-    this.target = this.$refs.descr;
-    this.$refs.title.focus();
+    this.title = this.value;
   },
   components: {},
   data() {
     return {
-      name: null,
-      title: null,
-      target: null,
+      title: ''
     }
   },
   methods: {
-    aSyncFunction: function (query, done) {
-      axios.get(this.url + query)
-          .then(res => {
-            done(res.data);
-          })
-          .catch(err => {
-            // any error handler
-          })
-    },
-    betterHighlight: function (item) {
-      var inputValue = this.$refs.descr.value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-      var escapedName = this.escapeHtml(item.description);
-      return escapedName.replace(new RegExp(("" + inputValue), 'i'), '<b>$&</b>');
-    },
-    escapeHtml: function (string) {
-
-      let entityMap = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;',
-        '/': '&#x2F;',
-        '`': '&#x60;',
-        '=': '&#x3D;'
-      };
-
-      return String(string).replace(/[&<>"'`=\/]/g, function fromEntityMap(s) {
-        return entityMap[s];
-      });
-
-    },
-    search: function (input) {
-      return ['ab', 'cd'];
-    },
     hasError: function () {
       return this.error.length > 0;
     },
     clearTitle: function () {
-      //props.value = '';
       this.title = '';
-      this.$refs.title.value = '';
-      this.$emit('input', this.$refs.title.value);
-      // some event?
-      this.$emit('clear:title')
     },
-    handleInput(e) {
-      this.$emit('input', this.$refs.title.value);
-    },
-    handleEnter: function (e) {
-      // See reference nr. 7
-
-      if (e.keyCode === 13) {
-        //e.preventDefault();
-      }
-    },
-    selectedItem: function (e) {
-      if (typeof this.name === 'undefined') {
-        return;
-      }
-      if (typeof this.name === 'string') {
-        return;
-      }
-      this.$refs.title.value = this.name.description;
-      this.$emit('input', this.$refs.title.value);
+    handleInput() {
+      this.$emit('input', this.title);
     },
   }
 }
