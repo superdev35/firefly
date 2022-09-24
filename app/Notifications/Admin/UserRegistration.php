@@ -22,7 +22,61 @@ declare(strict_types=1);
 
 namespace FireflyIII\Notifications\Admin;
 
-class UserRegistration
-{
+use FireflyIII\User;
+use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
+class UserRegistration extends Notification
+{
+    use Queueable;
+
+    private User $user;
+
+    /**
+     * Create a new notification instance.
+     *
+     * @return void
+     */
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function via($notifiable)
+    {
+        return ['mail'];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+            ->markdown('emails.registered-admin', ['email' => $this->user->email, 'id' => $this->user->id])
+            ->subject((string) trans('email.registered_subject_admin'));
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toArray($notifiable)
+    {
+        return [
+            //
+        ];
+    }
 }
