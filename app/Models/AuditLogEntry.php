@@ -33,8 +33,8 @@ class AuditLogEntry extends Model
     use SoftDeletes;
 
     protected $casts = [
-        'before' => 'array',
-        'after' => 'array',
+        'before'     => 'array',
+        'after'      => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
