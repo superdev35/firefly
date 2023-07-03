@@ -27,6 +27,7 @@ enum Periodicity
     case Weekly;
     case Fortnightly;
     case Monthly;
+    case Bimonthly;
     case Quarterly;
     case HalfYearly;
     case Yearly;
