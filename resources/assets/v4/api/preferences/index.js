@@ -18,14 +18,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {api} from "boot/axios";
+import {api} from "../../boot/axios";
 
 export default class Preferences {
-  getByName(name) {
-    return api.get('/api/v1/preferences/' + name);
-  }
+    async getByName(name) {
+        return await api.get('/api/v1/preferences/' + name);
+    }
 
-  postByName(name, value) {
-    return api.post('/api/v1/preferences', {name: name, data: value});
-  }
+    postByName(name, value) {
+        return api.post('/api/v1/preferences', {name: name, data: value});
+    }
 }
