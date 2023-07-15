@@ -21,8 +21,8 @@
 import {api} from "../../boot/axios";
 
 export default class Preferences {
-    async getByName(name) {
-        return await api.get('/api/v1/preferences/' + name);
+    getByName(name) {
+        return api.get('/api/v1/preferences/' + name);
     }
 
     postByName(name, value) {
