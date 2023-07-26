@@ -19,8 +19,9 @@
  */
 
 import Get from "../api/v1/preferences/index.js";
+import Post from "../api/v1/preferences/post.js";
 
-export function getVariable(name) {
+export function getVariable(name, defaultValue = null) {
 
     // currently unused, window.X can be used by the blade template
     // to make things available quicker than if the store has to grab it through the API.
@@ -38,7 +39,13 @@ export function getVariable(name) {
     return getter.getByName(name).then((response) => {
         // console.log('Get from API');
         return Promise.resolve(parseResponse(name, response));
-
+    }).catch(() => {
+        // preference does not exist (yet).
+        // POST it and then return it anyway.
+        let poster = (new Post);
+        poster.post(name, defaultValue).then((response) => {
+            return Promise.resolve(parseResponse(name, response));
+        });
     });
 }
 
