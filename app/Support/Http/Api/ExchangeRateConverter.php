@@ -57,5 +57,4 @@ class ExchangeRateConverter
         return '0' === $rate ? '1' : $rate;
     }
 
-
 }
