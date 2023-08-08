@@ -36,13 +36,11 @@ export function setVariable(name, value = null) {
     // post to user preferences (because why not):
     let putter = new Put();
     putter.put(name, value).then((response) => {
-        // console.log('Put in API');
     }).catch(() => {
         // preference does not exist (yet).
         // POST it
         let poster = (new Post);
         poster.post(name, value).then((response) => {
-            // console.log('Post in API');
         });
     });
 }
