@@ -27,6 +27,14 @@ function getDefaultChartSettings(type) {
             }
         }
     }
+    if ('pie' === type) {
+        return {
+            type: 'pie',
+            data: {
+                datasets: [],
+            }
+        }
+    }
     if ('column' === type) {
         return {
             type: 'bar',
