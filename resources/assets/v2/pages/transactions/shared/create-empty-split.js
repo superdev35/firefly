@@ -19,6 +19,8 @@
  */
 
 
+import format from "date-fns/format";
+
 function getAccount() {
     return {
         id: '',
@@ -27,10 +29,13 @@ function getAccount() {
 }
 
 export function createEmptySplit() {
+    let now = new Date();
+    let formatted = format(now, 'yyyy-MM-dd HH:mm');
     return {
-        description: 'I am descr',
+        description: 'OK then',
         amount: '',
         source_account: getAccount(),
         destination_account: getAccount(),
+        date: formatted
     };
 }
