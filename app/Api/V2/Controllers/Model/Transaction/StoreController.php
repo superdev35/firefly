@@ -32,6 +32,10 @@ use Illuminate\Http\JsonResponse;
 class StoreController extends Controller
 {
     /**
+     * TODO this method is practically the same as the V1 method and borrows as much code as possible.
+     * TODO still it duplicates a lot.
+     * TODO the v1 endpoints will never support separate administrations, this is an important distinction.
+     *
      * @return JsonResponse
      */
     public function post(): JsonResponse
