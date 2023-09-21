@@ -25,6 +25,7 @@ declare(strict_types=1);
 
 namespace FireflyIII\Api\V2\Request\UserGroup;
 
+use FireflyIII\Enums\UserRoleEnum;
 use FireflyIII\Support\Request\ChecksLogin;
 use FireflyIII\Support\Request\ConvertsDataTypes;
 use Illuminate\Foundation\Http\FormRequest;
@@ -34,6 +35,7 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class StoreRequest extends FormRequest
 {
+    protected array $acceptedRoles = [UserRoleEnum::OWNER, UserRoleEnum::FULL];
     use ChecksLogin;
     use ConvertsDataTypes;
 
