@@ -25,7 +25,6 @@ namespace FireflyIII\Api\V1\Controllers\Models\Rule;
 
 use FireflyIII\Api\V1\Controllers\Controller;
 use FireflyIII\Api\V1\Requests\Models\Rule\ValidateExpressionRequest;
-use FireflyIII\TransactionRules\Expressions\ActionExpression;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -43,18 +42,8 @@ class ExpressionController extends Controller
      */
     public function validateExpression(ValidateExpressionRequest $request): JsonResponse
     {
-        $value = $request->getExpression();
-        $expr = new ActionExpression($value);
-
-        if ($expr->isValid()) {
-            return response()->json([
-                "valid" => true,
-            ]);
-        } else {
-            return response()->json([
-                "valid" => false,
-                "error" => $expr->getValidationError()->getMessage()
-            ]);
-        }
+        return response()->json([
+            "valid" => true,
+        ]);
     }
 }
