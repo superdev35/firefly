@@ -52,7 +52,7 @@ export function getVariable(name, defaultValue = null) {
     });
 }
 
-function parseResponse(name, response) {
+export function parseResponse(name, response) {
     let value = response.data.data.attributes.data;
     window.store.set(name, value);
     // console.log('Store "' + name + '" in localStorage');
