@@ -36,7 +36,7 @@ class CreateController extends Controller
     public function create()
     {
         $title         = (string)trans('firefly.administrations_page_title');
-        $subTitle      = (string)trans('firefly.administrations_page_sub_title');
+        $subTitle      = (string)trans('firefly.administrations_page_create_sub_title');
         $mainTitleIcon = 'fa-book';
         app('log')->debug(sprintf('Now at %s', __METHOD__));
 
