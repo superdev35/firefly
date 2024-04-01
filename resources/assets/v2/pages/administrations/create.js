@@ -60,6 +60,7 @@ let administrations = function () {
 
         pageProperties: {},
         submitForm() {
+            this.errors.title = [];
             (new Post()).post({title: this.title}).then(response => {
                 if (this.formStates.returnHereButton) {
                     this.notifications.success.show = true;
@@ -73,7 +74,7 @@ let administrations = function () {
                     window.location.href = './administrations?user_group_id=' + parseInt(response.data.data.id) + '&message=created';
                 }
             }).catch(error => {
-                console.error(error);
+                this.errors.title = error.response.data.errors.title;
             });
 
         },

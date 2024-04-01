@@ -23,15 +23,15 @@ import format from "date-fns/format";
 
 export default class Get {
 
-    // /**
-    //  *
-    //  * @param identifier
-    //  * @param params
-    //  * @returns {Promise<AxiosResponse<any>>}
-    //  */
-    // show(identifier, params) {
-    //     return api.get('/api/v2/accounts/' + identifier, {params: params});
-    // }
+    /**
+     *
+     * @param identifier
+     * @param params
+     * @returns {Promise<AxiosResponse<any>>}
+     */
+    show(identifier, params) {
+        return api.get('/api/v2/user-groups/' + identifier, {params: params});
+    }
 
     /**
      *
