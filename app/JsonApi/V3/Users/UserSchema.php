@@ -32,7 +32,7 @@ class UserSchema extends Schema
             ID::make(),
             DateTime::make('created_at')->sortable()->readOnly(),
             DateTime::make('created_at')->sortable()->readOnly(),
-            HasMany::make('accounts'),
+            //HasMany::make('accounts'),
         ];
     }
 
