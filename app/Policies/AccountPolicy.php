@@ -53,4 +53,19 @@ class AccountPolicy
         return true;
         return auth()->check();
     }
+
+    /**
+     * Everybody can do this, but selection should limit to user.
+     *
+     * @return true
+     */
+    public function viewUser(User $user, Account $account): bool
+    {
+        return $this->view($user, $account);
+    }
+
+    public function viewBalances(User $user, Account $account): bool
+    {
+        return $this->view($user, $account);
+    }
 }
