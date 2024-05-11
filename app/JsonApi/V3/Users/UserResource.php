@@ -23,6 +23,7 @@ class UserResource extends JsonApiResource
         return [
             'created_at' => $this->resource->created_at,
             'updated_at' => $this->resource->updated_at,
+            'email'      => $this->resource->email,
         ];
     }
 

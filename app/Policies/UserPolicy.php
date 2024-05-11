@@ -36,7 +36,7 @@ class UserPolicy
      *
      * @return bool
      */
-    public function view(User $user, Account $account): bool
+    public function view(User $user, User $user1): bool
     {
         return true;
         return auth()->check() && $user->id === $account->user_id;
@@ -48,6 +48,11 @@ class UserPolicy
      * @return true
      */
     public function viewAny(): bool
+    {
+        return true;
+        return auth()->check();
+    }
+    public function viewAccounts(User $user): bool
     {
         return true;
         return auth()->check();
