@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send issue to Gitter
-        id: replace-version
+        id: issue-gitter
         uses: JC5/firefly-iii-dev@main
         with:
           action: 'ff3:post-to-gitter issue'
