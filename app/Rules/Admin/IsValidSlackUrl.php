@@ -24,7 +24,7 @@ class IsValidSlackUrl implements ValidationRule
 
         if(!str_starts_with($value, 'https://hooks.slack.com/services/')) {
             $fail('validation.active_url')->translate();
-            $message = sprintf('IsValidSlackUrl: "%s" is not a discord URL.', substr($value, 0, 255));
+            $message = sprintf('IsValidSlackUrl: "%s" is not a slack URL.', substr($value, 0, 255));
             Log::debug($message);
             Log::channel('audit')->info($message);
         }
