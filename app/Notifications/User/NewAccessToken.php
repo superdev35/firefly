@@ -38,35 +38,17 @@ class NewAccessToken extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     */
+
     public function __construct() {}
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param mixed $notifiable
-     *
-     * @return array
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
+
     public function toArray($notifiable)
     {
         return [
         ];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param mixed $notifiable
-     *
-     * @return MailMessage
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
+
     public function toMail($notifiable)
     {
         return (new MailMessage())
@@ -75,29 +57,13 @@ class NewAccessToken extends Notification
         ;
     }
 
-    /**
-     * Get the Slack representation of the notification.
-     *
-     * @param mixed $notifiable
-     *
-     * @return SlackMessage
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
+
     public function toSlack($notifiable)
     {
         return (new SlackMessage())->content((string)trans('email.access_token_created_body'));
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param mixed $notifiable
-     *
-     * @return array
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
+
     public function via($notifiable)
     {
         /** @var null|User $user */
