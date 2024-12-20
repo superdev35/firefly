@@ -51,6 +51,6 @@ class BudgetLimitObserver
             $budgetLimit->native_amount = $converter->convert($budgetLimit->transactionCurrency, $userCurrency, today(), $budgetLimit->amount);
         }
         $budgetLimit->saveQuietly();
-        Log::debug('Bill native amounts are updated.');
+        Log::debug('Budget limit native amounts are updated.');
     }
 }
