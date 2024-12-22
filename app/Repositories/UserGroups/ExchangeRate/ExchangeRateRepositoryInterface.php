@@ -24,10 +24,21 @@ declare(strict_types=1);
 
 namespace FireflyIII\Repositories\UserGroups\ExchangeRate;
 
+use Carbon\Carbon;
+use FireflyIII\Models\CurrencyExchangeRate;
 use FireflyIII\Models\TransactionCurrency;
 use Illuminate\Support\Collection;
 
 interface ExchangeRateRepositoryInterface
 {
     public function getRates(TransactionCurrency $from, TransactionCurrency $to): Collection;
+
+    public function getSpecificRateOnDate(TransactionCurrency $from, TransactionCurrency $to, Carbon $date): ?CurrencyExchangeRate;
+
+    public function deleteRate(CurrencyExchangeRate $rate): void;
+
+    public function updateExchangeRate(CurrencyExchangeRate $object, string $rate, ?Carbon $date = null): CurrencyExchangeRate;
+
+    public function storeExchangeRate(TransactionCurrency $from, TransactionCurrency $to, string $rate, Carbon $date): CurrencyExchangeRate;
+
 }
