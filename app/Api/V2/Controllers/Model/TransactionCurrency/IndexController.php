@@ -39,9 +39,6 @@ class IndexController extends Controller
     private CurrencyRepositoryInterface $repository;
     protected array                     $acceptedRoles = [UserRoleEnum::READ_ONLY];
 
-    /**
-     * AccountController constructor.
-     */
     public function __construct()
     {
         parent::__construct();

@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import Index from "../components/exchange-rates/Index";
+import Rates from "../components/exchange-rates/Rates";
 
 /**
  * First we will load Axios via bootstrap.js
@@ -34,6 +34,6 @@ const app = new Vue({
     i18n,
     el: "#exchange_rates_rates",
     render: (createElement) => {
-        return createElement(Index, {props: props})
+        return createElement(Rates, {props: props})
     },
 });
