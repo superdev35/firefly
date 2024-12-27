@@ -27,9 +27,6 @@ namespace FireflyIII\Console\Commands\Upgrade;
 use FireflyIII\Console\Commands\ShowsFriendlyMessages;
 use Illuminate\Console\Command;
 
-/**
- * Class MigrateRecurrenceType
- */
 class UpgradesRecurrenceType extends Command
 {
     use ShowsFriendlyMessages;
