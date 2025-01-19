@@ -55,6 +55,7 @@ class DateRequest extends FormRequest
         return [
             'start' => $start,
             'end'   => $end,
+            'date' => $this->getCarbonDate('date'),
         ];
     }
 
@@ -64,8 +65,9 @@ class DateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start' => 'required|date',
-            'end'   => 'required|date|after:start',
+            'date'  => 'date|after:1900-01-01|before:2099-12-31',
+            'start' => 'date|after:1900-01-01|before:2099-12-31|before:end|required_with:end',
+            'end'   => 'date|after:1900-01-01|before:2099-12-31|after:start|required_with:start',
         ];
     }
 }
