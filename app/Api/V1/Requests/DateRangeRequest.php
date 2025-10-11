@@ -39,8 +39,6 @@ class DateRangeRequest extends ApiRequest
     {
         $validator->after(
             function (Validator $validator): void {
-                $this->attributes->set('start', null);
-                $this->attributes->set('end', null);
                 if (!$validator->valid()) {
                     return;
                 }
