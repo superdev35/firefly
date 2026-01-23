@@ -25,14 +25,8 @@ namespace FireflyIII\Handlers\Events;
 
 use Exception;
 use FireflyIII\Events\Admin\InvitationCreated;
-use FireflyIII\Events\NewVersionAvailable;
-use FireflyIII\Events\Test\OwnerTestsNotificationChannel;
 use FireflyIII\Notifications\Admin\UserInvitation;
-use FireflyIII\Notifications\Admin\VersionCheckResult;
 use FireflyIII\Notifications\Notifiables\OwnerNotifiable;
-use FireflyIII\Notifications\Test\OwnerTestNotificationEmail;
-use FireflyIII\Notifications\Test\OwnerTestNotificationPushover;
-use FireflyIII\Notifications\Test\OwnerTestNotificationSlack;
 use FireflyIII\Support\Facades\FireflyConfig;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
@@ -71,30 +65,4 @@ class AdminEventHandler
     /**
      * Send new version message to admin.
      */
-    public function sendNewVersion(NewVersionAvailable $event): void
-    {
-        $sendMail = FireflyConfig::get('notification_new_version', true)->data;
-        if (false === $sendMail) {
-            return;
-        }
-
-        try {
-            $owner = new OwnerNotifiable();
-            Notification::send($owner, new VersionCheckResult($event->message));
-        } catch (Exception $e) {
-            $message = $e->getMessage();
-            if (str_contains($message, 'Bcc')) {
-                Log::warning('[Bcc] Could not send notification. Please validate your email settings, use the .env.example file as a guide.');
-
-                return;
-            }
-            if (str_contains($message, 'RFC 2822')) {
-                Log::warning('[RFC] Could not send notification. Please validate your email settings, use the .env.example file as a guide.');
-
-                return;
-            }
-            Log::error($e->getMessage());
-            Log::error($e->getTraceAsString());
-        }
-    }
 }
