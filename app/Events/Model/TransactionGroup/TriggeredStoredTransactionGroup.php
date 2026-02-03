@@ -29,6 +29,9 @@ use FireflyIII\Models\RuleGroup;
 use FireflyIII\Models\TransactionGroup;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * @deprecated
+ */
 class TriggeredStoredTransactionGroup extends Event
 {
     use SerializesModels;
