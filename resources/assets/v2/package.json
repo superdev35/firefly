@@ -30,7 +30,7 @@
         "i18next": "^26.0.3",
         "i18next-chained-backend": "^5.0.0",
         "i18next-http-backend": "^3.0.1",
-        "i18next-localstorage-backend": "^4.2.0",
+        "i18next-localstorage-backend": "^4.3.2",
         "leaflet": "^1.9.4",
         "store": "^2.0.12"
     }
